@@ -112,6 +112,28 @@
 //         methods: ["POST"]
 // ```
 //
+// The following is another example that sets `action`` to "DENY" to create a deny policy.
+// It denies requests all the "POST" method request on port "8080" on all workloads
+// in the "foo" namespace.
+//
+// ```yaml
+// apiVersion: security.istio.io/v1beta1
+// kind: AuthorizaionPolicy
+// metadata:
+//   name: httpbin
+//   namespace: foo
+// spec:
+//   action: DENY
+//   rules:
+//   - to:
+//     - operation:
+//         methods: ["POST"]
+//         ports: ["8080"]
+//
+// If we remove the ports from the rules of the above-mentioned deny policy, then it will just have the http attribute
+// in the rules and it will deny all the traffic on raw tcp ports. It's better to always add ports in the deny policy
+// if you don't want to deny all the TCP traffic. [Authorization Policy for TCP Ports] (https://istio.io/latest/docs/tasks/security/authorization/authz-tcp/)
+//
 // The following authorization policy sets the `action` to "AUDIT". It will audit any GET requests to the path with the
 // prefix "/user/profile".
 //

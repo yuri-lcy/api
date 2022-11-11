@@ -84,9 +84,31 @@ spec:
     - operation:
         methods: [&quot;POST&quot;]
 </code></pre>
-<p>The following authorization policy sets the <code>action</code> to &ldquo;AUDIT&rdquo;. It will audit any GET requests to the path with the
-prefix &ldquo;/user/profile&rdquo;.</p>
+<p>The following is another example that sets `action`` to &ldquo;DENY&rdquo; to create a deny policy.
+It denies requests all the &ldquo;POST&rdquo; method request on port &ldquo;8080&rdquo; on all workloads
+in the &ldquo;foo&rdquo; namespace.</p>
 <pre><code class="language-yaml">apiVersion: security.istio.io/v1beta1
+kind: AuthorizaionPolicy
+metadata:
+  name: httpbin
+  namespace: foo
+spec:
+  action: DENY
+  rules:
+  - to:
+    - operation:
+        methods: [&quot;POST&quot;]
+        ports: [&quot;8080&quot;]
+
+If we remove the ports from the rules of the above-mentioned deny policy, then it will just have the http attribute
+in the rules and it will deny all the traffic on raw tcp ports. It's better to always add ports in the deny policy
+if you don't want to deny all the TCP traffic. [Authorization Policy for TCP Ports] (https://istio.io/latest/docs/tasks/security/authorization/authz-tcp/)
+
+The following authorization policy sets the `action` to &quot;AUDIT&quot;. It will audit any GET requests to the path with the
+prefix &quot;/user/profile&quot;.
+
+```yaml
+apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
   namespace: ns1

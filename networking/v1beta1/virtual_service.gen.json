@@ -906,6 +906,10 @@
             "items": {
               "type": "string"
             }
+          },
+          "enableAcmg": {
+            "description": "true: virtual service will attach to acmg gateway false: default value, and do nothing",
+            "type": "boolean"
           }
         }
       }

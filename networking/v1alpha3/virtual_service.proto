@@ -288,6 +288,10 @@ message VirtualService {
   // the virtual service is declared in. Similarly the value "*" is reserved and
   // defines an export to all namespaces.
   repeated string export_to = 6;
+
+  // true: virtual service will attach to acmg gateway
+  // false: default value, and do nothing
+  bool enable_acmg = 7;
 }
 
 // Destination indicates the network addressable service to which the

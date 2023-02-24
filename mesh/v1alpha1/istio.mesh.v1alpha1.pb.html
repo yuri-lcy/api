@@ -5,7 +5,7 @@ location: https://istio.io/docs/reference/config/istio.mesh.v1alpha1.html
 layout: protoc-gen-docs
 generator: protoc-gen-docs
 weight: 20
-number_of_entries: 58
+number_of_entries: 60
 ---
 <p>Configuration affecting the service mesh as a whole.</p>
 
@@ -629,6 +629,15 @@ No
 No
 </td>
 </tr>
+<tr id="MeshConfig-acmg_mesh">
+<td><code>acmgMesh</code></td>
+<td><code><a href="#MeshConfig-AcmgMeshConfig">AcmgMeshConfig</a></code></td>
+<td>
+</td>
+<td>
+No
+</td>
+</tr>
 </tbody>
 </table>
 </section>
@@ -1158,6 +1167,60 @@ No
 </td>
 </tr>
 <tr id="MeshConfig-AmbientMeshConfig-disabled_selectors">
+<td><code>disabledSelectors</code></td>
+<td><code><a href="#k8s-io-apimachinery-pkg-apis-meta-v1-LabelSelector">LabelSelector[]</a></code></td>
+<td>
+<p>A list of Kubernetes selectors that specify the set of namespaces that
+should be excluded from the ambient mesh when mode is set to on (global).
+If omitted, the ambient mesh will be applied to all namespaces.
+Elements in the list are disjunctive (OR semantics), i.e. a namespace
+will be excluded if it matches any selector.
+Example:</p>
+<pre><code class="language-yaml">ambientMesh:
+  mode: ON
+  disabledSelectors:
+  - matchLabels:
+      env: dev
+  - matchExpressions:
+    - key: app
+      operator: In
+      values:
+        - cassandra
+        - spark
+</code></pre>
+
+</td>
+<td>
+No
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h2 id="MeshConfig-AcmgMeshConfig">MeshConfig.AcmgMeshConfig</h2>
+<section>
+<table class="message-fields">
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr id="MeshConfig-AcmgMeshConfig-mode">
+<td><code>mode</code></td>
+<td><code><a href="#MeshConfig-AcmgMeshConfig-AcmgMeshMode">AcmgMeshMode</a></code></td>
+<td>
+<p>Sets the Ambient Mesh mode. The default is namespaced.</p>
+
+</td>
+<td>
+No
+</td>
+</tr>
+<tr id="MeshConfig-AcmgMeshConfig-disabled_selectors">
 <td><code>disabledSelectors</code></td>
 <td><code><a href="#k8s-io-apimachinery-pkg-apis-meta-v1-LabelSelector">LabelSelector[]</a></code></td>
 <td>
@@ -3758,6 +3821,41 @@ Namespaces that have the label <code>istio.io/dataplane-mode=ambient</code> set.
 </td>
 </tr>
 <tr id="MeshConfig-AmbientMeshConfig-AmbientMeshMode-OFF">
+<td><code>OFF</code></td>
+<td>
+<p>Disables AmbientMesh for the traditional sidecar approach.</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<h2 id="MeshConfig-AcmgMeshConfig-AcmgMeshMode">MeshConfig.AcmgMeshConfig.AcmgMeshMode</h2>
+<section>
+<table class="enum-values">
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr id="MeshConfig-AcmgMeshConfig-AcmgMeshMode-DEFAULT">
+<td><code>DEFAULT</code></td>
+<td>
+<p>Sets AmbientMesh to a namespaced configuration. This is the default.
+Namespaces that have the label <code>istio.io/dataplane-mode=ambient</code> set.</p>
+
+</td>
+</tr>
+<tr id="MeshConfig-AcmgMeshConfig-AcmgMeshMode-ON">
+<td><code>ON</code></td>
+<td>
+<p>Sets AmbientMesh to be applied to all namespaces.</p>
+
+</td>
+</tr>
+<tr id="MeshConfig-AcmgMeshConfig-AcmgMeshMode-OFF">
 <td><code>OFF</code></td>
 <td>
 <p>Disables AmbientMesh for the traditional sidecar approach.</p>

@@ -250,6 +250,9 @@
           },
           "ambientMesh": {
             "$ref": "#/components/schemas/istio.mesh.v1alpha1.MeshConfig.AmbientMeshConfig"
+          },
+          "acmgMesh": {
+            "$ref": "#/components/schemas/istio.mesh.v1alpha1.MeshConfig.AcmgMeshConfig"
           }
         }
       },
@@ -258,6 +261,29 @@
         "enum": [
           "TEXT",
           "JSON"
+        ]
+      },
+      "istio.mesh.v1alpha1.MeshConfig.AcmgMeshConfig": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "$ref": "#/components/schemas/istio.mesh.v1alpha1.MeshConfig.AcmgMeshConfig.AcmgMeshMode"
+          },
+          "disabledSelectors": {
+            "description": "A list of Kubernetes selectors that specify the set of namespaces that should be excluded from the ambient mesh when mode is set to on (global). If omitted, the ambient mesh will be applied to all namespaces. Elements in the list are disjunctive (OR semantics), i.e. a namespace will be excluded if it matches any selector. Example: ```yaml ambientMesh: mode: ON disabledSelectors: - matchLabels: env: dev - matchExpressions: - key: app operator: In values: - cassandra - spark ```",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector"
+            }
+          }
+        }
+      },
+      "istio.mesh.v1alpha1.MeshConfig.AcmgMeshConfig.AcmgMeshMode": {
+        "type": "string",
+        "enum": [
+          "DEFAULT",
+          "ON",
+          "OFF"
         ]
       },
       "istio.mesh.v1alpha1.MeshConfig.AmbientMeshConfig": {

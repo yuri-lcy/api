@@ -34581,6 +34581,22 @@
             ]
           },
           {
+            "name": "AcmgMeshConfig.AcmgMeshMode",
+            "enum_fields": [
+              {
+                "name": "DEFAULT"
+              },
+              {
+                "name": "ON",
+                "integer": 1
+              },
+              {
+                "name": "OFF",
+                "integer": 2
+              }
+            ]
+          },
+          {
             "name": "Resource",
             "enum_fields": [
               {
@@ -34828,6 +34844,11 @@
                 "id": 64,
                 "name": "tls_defaults",
                 "type": "TLSConfig"
+              },
+              {
+                "id": 100,
+                "name": "acmg_mesh",
+                "type": "AcmgMeshConfig"
               }
             ],
             "reserved_ids": [
@@ -35590,6 +35611,22 @@
                     "id": 2,
                     "name": "ecdh_curves",
                     "type": "string",
+                    "is_repeated": true
+                  }
+                ]
+              },
+              {
+                "name": "AcmgMeshConfig",
+                "fields": [
+                  {
+                    "id": 1,
+                    "name": "mode",
+                    "type": "AcmgMeshMode"
+                  },
+                  {
+                    "id": 3,
+                    "name": "disabled_selectors",
+                    "type": "k8s.io.apimachinery.pkg.apis.meta.v1.LabelSelector",
                     "is_repeated": true
                   }
                 ]
